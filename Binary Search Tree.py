@@ -46,3 +46,31 @@ class BinarySearchTree:
                 return True
             
         return False
+    
+    def r_contain(self,value):
+        return self.__r_contain(self.root,value)
+    
+    def __r_contain(self,current_node,value):
+        if current_node == None :
+            return False
+        if current_node.value == value :
+            return True
+        if value > current_node.value :
+            return self.__r_contain(current_node.right,value)
+        if value < current_node.value :
+            return self.__r_contain(current_node.left,value)
+        
+    def r_insert(self,value):
+        self.__r_insert(self.root,value)
+
+    def __r_insert(self,current_node,value):
+        if current_node == None:
+            current_node = Node(value)
+            return True
+        if current_node.value == value :
+            return False
+
+        if value > current_node.value :
+            return self.__r_insert(current_node.right,value)
+        if value < current_node.value :
+            return self.__r_insert(current_node.left,value)
