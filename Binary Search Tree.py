@@ -74,3 +74,37 @@ class BinarySearchTree:
             return self.__r_insert(current_node.right,value)
         if value < current_node.value :
             return self.__r_insert(current_node.left,value)
+        
+    def delete_node(self,value):
+        self.__delete_node(self.root,value)
+
+    def __delete_node(self,current_node,value):
+
+        if current_node == None :
+            return None
+        
+        if value > current_node.value :
+            current_node.right = self.__delete_node(current_node.right,value)
+
+        elif value < current_node.value :
+            current_node.left = self.__delete_node(current_node.left,value)
+        
+        else :
+            
+            if current_node.right == None and current_node.left == None :
+                return None
+            elif current_node.right == None :
+                current_node = current_node.left
+            elif current_node.left == None :
+                current_node = current_node.right
+            else:
+                sub_tree_min = self.min_value(current_node.right)
+                current_node.value = sub_tree_min
+                current_node.right = self.__delete_node(current_node.right,sub_tree_min)
+
+        return current_node
+    
+    def min_value(self,current_node):
+        while current_node.left :
+            current_node = current_node.left
+        return current_node.value
